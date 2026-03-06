@@ -10,13 +10,16 @@
     {}
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .header-top { background-color: #ffffff; border-bottom: 1px solid #e2e8f0; }
+        .brand-logo { font-weight: 900; font-size: 1.5rem; color: #dc2626; }
+        .nav-link { font-size: 0.875rem; font-weight: 600; color: #475569; transition: color 0.2s; }
+        .nav-link:hover { color: #dc2626; }
+        
         article h1{font-size:2rem;font-weight:800;margin:1.5rem 0 1rem;color:#0f172a}
-        article h2{font-size:1.5rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a;border-left:4px solid #3b82f6;padding-left:1rem}
+        article h2{font-size:1.5rem;font-weight:700;margin:2rem 0 .75rem;color:#0f172a;border-left:4px solid #dc2626;padding-left:1rem}
         article h3{font-size:1.25rem;font-weight:600;margin:1.5rem 0 .5rem;color:#1e293b}
         article p{margin-bottom:1rem;line-height:1.75;color:#334155}
         article ul,article ol{padding-left:1.5rem;margin-bottom:1rem}
@@ -24,93 +27,118 @@
         article table{width:100%;border-collapse:collapse;margin:1.5rem 0}
         article th{background:#f1f5f9;font-weight:700;padding:.75rem;border:1px solid #e2e8f0;text-align:left}
         article td{padding:.75rem;border:1px solid #e2e8f0}
-        article a{color:#2563eb;text-decoration:underline}
+        article a{color:#dc2626;text-decoration:underline}
         article figure img{border-radius:8px}
         article figcaption{font-size:.875rem;color:#94a3bb;margin-top:.5rem}
+
+        .bonus-badge { background: #dc2626; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; }
+        .grid-header { background: #f1f5f9; border: 1px solid #e2e8f0; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; color: #64748b; }
         
-        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; }
-        .badge-shadow { box-shadow: 0 4px 14px 0 rgba(0,0,0,0.1); }
-        .card-hover:hover { transform: translateY(-2px); transition: all 0.2s ease; }
-        
-        #cookie-banner { transition: transform 0.3s ease-in-out; }
-        .hidden { display: none !important; }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .cookie-banner { animation: slideUp 0.5s ease-out; }
     </style>
-    {{{schema_json}}}
+    <script type="application/ld+json">{{{schema_json}}}</script>
 </head>
-<body class="antialiased">
+<body class="text-slate-900">
 
-    <!-- Header -->
-    <header class="bg-white border-b sticky top-0 z-50">
-        <div class="container mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <a href="/" class="text-2xl font-black tracking-tighter text-blue-700 flex items-center gap-1">
-                    <i data-lucide="mountain" class="w-8 h-8"></i>
-                    ALPESCA<span class="text-slate-900">TURISMO</span>
-                </a>
+    <!-- Header Top -->
+    <header class="header-top py-2 px-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex space-x-4 text-slate-400">
+                <i data-lucide="facebook" class="w-4 h-4 cursor-pointer hover:text-blue-600"></i>
+                <i data-lucide="twitter" class="w-4 h-4 cursor-pointer hover:text-blue-400"></i>
+                <i data-lucide="instagram" class="w-4 h-4 cursor-pointer hover:text-pink-600"></i>
+                <i data-lucide="youtube" class="w-4 h-4 cursor-pointer hover:text-red-600"></i>
             </div>
-
-            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
-                <a href="#" class="hover:text-blue-600 transition">Casino senza documenti</a>
-                <a href="#" class="hover:text-blue-600 transition">Casino non AAMS</a>
-                <a href="#" class="hover:text-blue-600 transition">Siti scommesse</a>
-                <a href="/about/" class="hover:text-blue-600 transition">Chi Siamo</a>
-            </nav>
-
-            <div class="flex items-center gap-4">
-                <button id="mobile-menu-btn" class="md:hidden p-2">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-                <div class="hidden md:flex items-center bg-slate-100 rounded-full px-3 py-1 gap-2 text-xs font-bold">
-                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    LIVE UPDATES
-                </div>
+            <div class="brand-logo italic tracking-tighter">
+                ALPESCA<span class="text-slate-900">TURISMO</span>
             </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden bg-white border-b md:hidden">
-            <nav class="flex flex-col p-4 gap-4 text-sm font-semibold">
-                <a href="#" class="hover:text-blue-600">Casino senza documenti</a>
-                <a href="#" class="hover:text-blue-600">Casino non AAMS</a>
-                <a href="#" class="hover:text-blue-600">Siti scommesse</a>
-                <a href="/about/" class="hover:text-blue-600">Chi Siamo</a>
-            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-gradient py-16 md:py-24 text-center text-white">
+    <!-- Main Navigation -->
+    <nav class="bg-white border-b sticky top-0 z-50">
         <div class="container mx-auto px-4">
-            <h1 class="text-3xl md:text-5xl font-black mb-6 max-w-4xl mx-auto leading-tight">
-                Casino Senza Documenti: Gioca Subito Senza Invio di Documenti
-            </h1>
-            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
-                Le migliori piattaforme sicure e verificate per iniziare a giocare istantaneamente nel {{year}}.
-            </p>
-            <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm">
-                <span class="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full">
-                    <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i> Pagamenti Veloci
-                </span>
-                <span class="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full">
-                    <i data-lucide="shield-check" class="w-4 h-4 text-blue-400"></i> Licenza Europea
-                </span>
-                <span class="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full">
-                    <i data-lucide="zap" class="w-4 h-4 text-yellow-400"></i> Senza Attese
-                </span>
+            <div class="flex justify-between items-center h-14">
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="nav-link">Casino Non AAMS</a>
+                    <a href="#" class="nav-link">Siti Non AAMS</a>
+                    <a href="#" class="nav-link">Pagamenti Veloci</a>
+                    <a href="#" class="nav-link">Licenze Estere</a>
+                    <a href="#" class="nav-link">Casino Con Deposito Bassi</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <div class="flex items-center text-red-600 font-bold">
+                    <i data-lucide="search" class="w-5 h-5 cursor-pointer"></i>
+                </div>
             </div>
         </div>
-    </section>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden bg-white border-t px-4 py-4 space-y-3">
+            <a href="#" class="block nav-link">Casino Non AAMS</a>
+            <a href="#" class="block nav-link">Siti Non AAMS</a>
+            <a href="#" class="block nav-link">Pagamenti Veloci</a>
+            <a href="#" class="block nav-link">Licenze Estere</a>
+            <a href="#" class="block nav-link">Casino Con Deposito Bassi</a>
+        </div>
+    </nav>
 
-    <!-- Brand Table / Cards Section -->
-    <main class="container mx-auto px-4 py-12">
-        <div class="flex flex-col gap-4 mb-12">
+    <main class="container mx-auto px-4 py-8">
+        <!-- Breadcrumbs -->
+        <div class="text-xs text-slate-400 mb-4 flex items-center space-x-2">
+            <span>Home</span> <i data-lucide="chevron-right" class="w-3 h-3"></i> 
+            <span>Casino Non AAMS</span> <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            <span class="text-slate-600">Casino Senza Documenti</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-black text-slate-900 mb-2">I Migliori Casino Senza Documenti e Verifica a Marzo {{year}}</h1>
+        <p class="text-slate-500 mb-8">Aggiornato: 03.03.{{year}}</p>
+
+        <p class="text-lg text-slate-600 mb-10 leading-relaxed">
+            Ti è mai capitato di voler iniziare subito a giocare, ma dover perdere tempo con lunghe procedure di registrazione e invio di documenti? Ecco perché sempre più utenti scelgono un casino senza documenti. La possibilità di giocare senza richiedere la verifica dei documenti personali è un vantaggio enorme: registrazione rapida, più privacy e meno stress.
+        </p>
+
+        <h2 class="text-xl font-bold flex items-center mb-6">
+            <span class="w-2 h-6 bg-red-600 mr-3 block"></span>
+            Lista dei Migliori Casino Senza Documenti
+        </h2>
+
+        <!-- Desktop Header for List -->
+        <div class="hidden lg:grid grid-cols-12 gap-4 px-4 py-3 grid-header rounded-t-lg">
+            <div class="col-span-2">Casino Senza Documenti</div>
+            <div class="col-span-3">Bonus</div>
+            <div class="col-span-3">Punti Principali</div>
+            <div class="col-span-2 text-center">Grado</div>
+            <div class="col-span-2 text-center">Link Sicuro</div>
+        </div>
+
+        <div class="space-y-4 mb-16">
             
         </div>
 
-        <!-- Article Content -->
-        <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-slate-100">
-            <article>
-                <h1>Termini e Condizioni</h1>
+        <!-- Red Promo Banner -->
+        <div class="bg-red-600 rounded-2xl overflow-hidden mb-16 flex flex-col md:flex-row items-center">
+            <div class="p-8 md:p-12 text-white flex-1">
+                <h2 class="text-4xl font-black mb-4 border-none p-0 text-white">Casinò<br>Senza Documenti</h2>
+                <p class="text-lg opacity-90 mb-6">Gioca in totale sicurezza senza inviare la tua carta d'identità. Pagamenti istantanei e privacy garantita.</p>
+                <button class="bg-white text-red-600 px-8 py-3 rounded-full font-black uppercase text-sm hover:shadow-lg transition-all">
+                    Registrati Ora
+                </button>
+            </div>
+            <div class="flex-1 p-8">
+                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=600&q=80" alt="Casino Games" class="rounded-xl shadow-2xl transform rotate-2">
+            </div>
+        </div>
+
+        <article class="prose prose-slate max-w-none">
+            <h1>Termini e Condizioni</h1>
 <p>Ultimo aggiornamento: 2026</p>
 <p>Si prega di leggere attentamente questi Termini e Condizioni prima di utilizzare il sito web alpescaturismo.it. Accedendo o utilizzando il Sito, accetti di essere vincolato da questi Termini.</p>
 
@@ -140,75 +168,55 @@
 
 <h2>7. Contattaci</h2>
 <p>Per domande su questi Termini, contattaci all'indirizzo: <a href="mailto:info@alpescaturismo.it">info@alpescaturismo.it</a></p>
-            </article>
-        </div>
+        </article>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 pt-16 pb-8 border-t border-slate-800">
+    <footer class="bg-slate-900 text-white py-12 mt-20">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
                 <div class="col-span-1 md:col-span-2">
-                    <div class="text-white text-2xl font-black tracking-tighter mb-6 flex items-center gap-1">
-                        <i data-lucide="mountain" class="w-8 h-8"></i>
-                        ALPESCA<span class="text-blue-500">TURISMO</span>
+                    <div class="brand-logo italic tracking-tighter mb-4">
+                        ALPESCA<span class="text-white">TURISMO</span>
                     </div>
-                    <p class="mb-6 leading-relaxed">
-                        Alpescaturismo.it è il punto di riferimento per gli appassionati di gaming online in Italia. Offriamo recensioni imparziali, guide approfondite e le ultime novità sul mondo dei casino senza documenti e siti di scommesse sicuri.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="hover:text-white transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                        <a href="#" class="hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-                        <a href="#" class="hover:text-white transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <p class="text-slate-400 max-w-sm mb-6">Il portale di riferimento per gli appassionati di gaming online in Italia. Recensioni oneste, guide approfondite e i migliori bonus aggiornati quotidianamente.</p>
+                    <div class="flex space-x-4 text-slate-400">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Link Rapidi</h4>
-                    <ul class="flex flex-col gap-3">
-                        <li><a href="#" class="hover:text-white transition">Migliori Casino</a></li>
-                        <li><a href="#" class="hover:text-white transition">Bonus Benvenuto</a></li>
-                        <li><a href="#" class="hover:text-white transition">Casino Live</a></li>
-                        <li><a href="#" class="hover:text-white transition">Senza Deposito</a></li>
+                    <h4 class="font-bold mb-4">Link Rapidi</h4>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="/about/" class="hover:text-white">Chi Siamo</a></li>
+                        <li><a href="/contacts/" class="hover:text-white">Contatti</a></li>
+                        <li><a href="/privacy-policy/" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="/cookie-policy/" class="hover:text-white">Cookie Policy</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Legale</h4>
-                    <ul class="flex flex-col gap-3">
-                        <li><a href="/privacy-policy/" class="hover:text-white transition">Privacy Policy</a></li>
-                        <li><a href="/cookie-policy/" class="hover:text-white transition">Cookie Policy</a></li>
-                        <li><a href="/terms/" class="hover:text-white transition">Termini e Condizioni</a></li>
-                        <li><a href="#" class="hover:text-white transition">Gioco Responsabile</a></li>
+                    <h4 class="font-bold mb-4">Guide Popolari</h4>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-white">Casino Non AAMS</a></li>
+                        <li><a href="#" class="hover:text-white">Siti Scommesse</a></li>
+                        <li><a href="#" class="hover:text-white">Bonus Senza Deposito</a></li>
+                        <li><a href="#" class="hover:text-white">Metodi Pagamento</a></li>
                     </ul>
                 </div>
             </div>
-            
-            <div class="border-t border-slate-800 pt-8 text-center">
-                <div class="flex justify-center items-center gap-4 mb-6 opacity-50 grayscale">
-                    <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=100&h=40&fit=crop" alt="18+" class="h-8">
-                    <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=100&h=40&fit=crop" alt="AAMS" class="h-8">
-                </div>
-                <p class="text-sm italic">
-                    Il gioco è vietato ai minori di 18 anni e può causare dipendenza patologica. Gioca con responsabilità.
-                </p>
-                <p class="mt-4 text-xs">
-                    &copy; {{year}} Alpescaturismo.it - Tutti i diritti riservati.
-                </p>
+            <div class="border-t border-slate-800 pt-8 text-center text-slate-500 text-xs">
+                <p>&copy; {{year}} alpescaturismo.it - Tutti i diritti riservati. Il gioco è vietato ai minori di 18 anni. Gioca responsabilmente.</p>
             </div>
         </div>
     </footer>
 
     <!-- Cookie Banner -->
-    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-white border-t-4 border-blue-600 shadow-2xl z-[100] p-6 md:p-8">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex-1">
-                <h5 class="text-lg font-bold text-slate-900 mb-2">Rispettiamo la tua Privacy</h5>
-                <p class="text-sm text-slate-600 leading-relaxed">
-                    Utilizziamo i cookie per migliorare la tua esperienza di navigazione, servire annunci o contenuti personalizzati e analizzare il nostro traffico. Cliccando su "Accetta", acconsenti al nostro utilizzo dei cookie.
-                </p>
-            </div>
-            <div class="flex gap-3 w-full md:w-auto">
-                <button onclick="closeCookieBanner()" class="flex-1 md:flex-none border border-slate-300 px-6 py-2.5 rounded-lg font-bold text-slate-700 hover:bg-slate-50 transition">Rifiuta</button>
-                <button onclick="closeCookieBanner()" class="flex-1 md:flex-none bg-blue-600 px-8 py-2.5 rounded-lg font-bold text-white hover:bg-blue-700 transition shadow-lg">Accetta</button>
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-slate-900 text-white p-4 z-[100] cookie-banner">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-slate-300 text-center md:text-left">Utilizziamo i cookie per offrirti la migliore esperienza sul nostro sito. Continuando a navigare, accetti la nostra cookie policy.</p>
+            <div class="flex gap-4">
+                <button onclick="hideCookieBanner()" class="px-6 py-2 bg-slate-700 hover:bg-slate-600 rounded text-sm font-bold">Impostazioni</button>
+                <button onclick="hideCookieBanner()" class="px-6 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-bold">Accetta Tutto</button>
             </div>
         </div>
     </div>
@@ -225,22 +233,10 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Cookie Banner Close Function
-        function closeCookieBanner() {
-            const banner = document.getElementById('cookie-banner');
-            banner.style.transform = 'translateY(100%)';
-            setTimeout(() => {
-                banner.classList.add('hidden');
-            }, 300);
-            localStorage.setItem('cookiesAccepted', 'true');
+        // Cookie Banner Function
+        function hideCookieBanner() {
+            document.getElementById('cookie-banner').classList.add('hidden');
         }
-
-        // Check if cookies already accepted
-        window.onload = () => {
-            if (localStorage.getItem('cookiesAccepted')) {
-                document.getElementById('cookie-banner').classList.add('hidden');
-            }
-        };
     </script>
 </body>
 </html>
